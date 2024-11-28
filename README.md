@@ -23,7 +23,7 @@ composer require vemcogroup/laravel-smsapi
 
 The package will automatically register its service provider.
 
-To publish the config file to `config/translation.php` run:
+To publish the config file to `config/smsapi.php` run:
 
 ```bash
 php artisan vendor:publish --provider="Vemcogroup\SmsApi\SmsApiServiceProvider"
