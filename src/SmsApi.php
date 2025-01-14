@@ -4,6 +4,7 @@ namespace Vemcogroup\SmsApi;
 
 use Smsapi\Client\Curl\SmsapiHttpClient;
 use Smsapi\Client\Feature\Sms\Bag\SendSmsBag;
+use Smsapi\Client\Feature\Sms\Data\Sms;
 use Vemcogroup\SmsApi\Exceptions\SmsApiException;
 
 class SmsApi
@@ -17,7 +18,13 @@ class SmsApi
             $sms->from = $from;
             $sms->normalize = true;
 
-            $service = (new SmsapiHttpClient())->smsapiComService($apiToken);
+            $serviceVersion = config('smsapi.version');
+
+            if ('pl' === strtolower($serviceVersion)) {
+                $service = (new SmsapiHttpClient())->smsapiPlService($apiToken);
+            } else {
+                $service = (new SmsapiHttpClient())->smsapiComService($apiToken);
+            }
 
             return $service->smsFeature()->sendSms($sms);
         } catch(SmsApiException $e) {
